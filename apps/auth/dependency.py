@@ -148,3 +148,4 @@ class hasPermission:
                 break
         if not is_allowed:
             raise ForbiddenException()
+        
