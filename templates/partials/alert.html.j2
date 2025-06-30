@@ -1,0 +1,10 @@
+{% for message in get_flashed_messages(request) %}
+<div class="alert {{" alert-warning" if message.type=='warn' else "alert-success" if message.type=='success'
+    else "alert-error" if message.type=='error' }} flex items-center gap-4" role="alert">
+    <span class="{{" icon-[tabler--alert-triangle]" if message.type=='warn' else "icon-[tabler--circle-check]" if
+        message.type=='success' else "icon-[tabler--alert-triangle]" if message.type=='error' }} shrink-0
+        size-6"></span>
+    <p><span class="text-lg font-semibold">{{message.type | capitalize}}</span> {{ message.message }}
+    </p>
+</div>
+{% endfor %}

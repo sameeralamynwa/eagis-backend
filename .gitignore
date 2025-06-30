@@ -1,0 +1,28 @@
+#
+node_modules
+uploads
+
+# Virtual environment
+venv/
+*.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# FastAPI migrations folder (if using Alembic)
+migrations/
+
+# Environment variables file
+.env
+
+# Logs
+*.log
+
+# Other common Python and system files
+*.db
+*.sqlite3

@@ -1,0 +1,57 @@
+{% extends 'admin/auth/auth_layout.html.j2' %}
+
+{% block title %}
+Login - {{app_name}}
+{% endblock title %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col items-center justify-center bg-base-200 p-5">
+    <div class="flex flex-col bg-base-100 shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
+        <div class="flex justify-center mb-4">
+            <a href="{{url_for('admin.dashboard')}}" class="flex items-center gap-1 font-bold text-xl">
+                <img src="{{url_for('static',path='/logo.png')}}" alt="" class="w-auto h-6"> {{app_name}}
+            </a>
+        </div>
+        <div class="font-medium self-center text-xl sm:text-2xl uppercase text-base-content/80">Login To Your Account
+        </div>
+        <div class="mt-10">
+            <form action="{{url_for('admin.login')}}" method="post">
+                {{ form.csrf_token }}
+                <div class="flex flex-col mb-6">
+                    {{form.username.label(class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600")}}
+                    <div class="input max-w-sm">
+                        <span class="icon-[tabler--at] text-base-content/80 my-auto me-3 size-5 shrink-0"></span>
+                        {{form.username(class="grow",placeholder="JohnDoe341")}}
+                    </div>
+                    {% for error in form.username.errors %}
+                    <span class="label text-xs text-error">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="flex flex-col mb-6">
+                    {{form.password.label(class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600")}}
+                    <div class="input max-w-sm">
+                        <span class="icon-[tabler--lock] text-base-content/80 my-auto me-3 size-5 shrink-0"></span>
+                        {{form.password(class="grow",placeholder="**********")}}
+                    </div>
+                </div>
+
+                <div class="flex items-center mb-6 -mt-4">
+                    <div class="flex ml-auto">
+                        <a href="#" class="inline-flex text-xs sm:text-sm text-primary">Forgot
+                            Your
+                            Password?</a>
+                    </div>
+                </div>
+
+                <div class="flex w-full">
+                    <button type="submit" class="btn w-full btn-primary">
+                        <span class="mr-2 uppercase">Login</span>
+                        <span class="icon-[tabler--circle-arrow-right] size-5">
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

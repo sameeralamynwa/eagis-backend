@@ -1,0 +1,19 @@
+# .pre-commit-config.yaml
+
+repos:
+  # Flake8 Linter
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        name: Lint Python files with flake8
+        types: [python]
+
+  # Black Formatter
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        name: Format Python files with black
+        types: [python]
+        language_version: python3 # ensure it uses Python 3

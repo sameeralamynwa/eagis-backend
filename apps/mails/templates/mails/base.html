@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} {%endblock%}</title>
+</head>
+
+<body style="width: 100%;max-width: 980px;margin: auto;">
+  <div style="background-color: aliceblue;padding: 20px;">
+    <table>
+      <tr>
+        <td>
+          <img src="{{app_url+'/static/logo.png'}}" alt="logo" style="width: 30px;height: 30px;">
+        </td>
+        <td style="padding-left: 10px;font-weight: bold;font-size: 22px;">{{app_name}}</td>
+      </tr>
+    </table>
+  </div>
+  {% block content%}{%endblock%}
+  <p style="font-size: 14px; color: #999; margin-top: 30px; padding: 20px;">© 2025 {{app_name}}. All rights
+    reserved.</p>
+</body>
+
+</html>

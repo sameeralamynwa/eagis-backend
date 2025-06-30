@@ -1,0 +1,111 @@
+{% extends "admin/base.html.j2" %}
+
+{% block content %}
+<div class="p-5 mt-5">
+    <div class="flex justify-between mb-5 gap-4">
+        <h1 class="text-2xl font-bold">Blog Category</h1>
+        <div class="flex flex-wrap-reverse justify-end items-center gap-2 w-full">
+            <div>
+                <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap justify-end w-full">
+                    <div class="input max-w-xs">
+                        <span class="icon-[tabler--search] text-base-content/80 my-auto me-3 size-5 shrink-0"></span>
+                        <input type="search" class="grow" placeholder="Search" id="leadingIconDefault" name="search"
+                            value="{{ request.query_params.get('search','')}}" onkeydown="searchFilter(event)" />
+                    </div>
+                    <div class="select max-w-[200px]">
+                        {% set selected_per_page = request.query_params.get('per_page','') %}
+                        <select class="select" id="per_page" name="per_page" aria-label="floating label"
+                            onchange="record_per_page(event)">
+                            <option value="10" {% if selected_per_page|int==10 %} selected {% endif %}>10 Per Page
+                            </option>
+                            <option value="20" {% if selected_per_page|int==20 or selected_per_page=='' %} selected {%
+                                endif %}>20 Per Page</option>
+                            <option value="50" {% if selected_per_page|int==50 %} selected {% endif %}>50 Per Page
+                            </option>
+                            <option value="100" {% if selected_per_page|int==100 %} selected {% endif %}>100 Per Page
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-primary" href="{{url_for('admin.blog_categories.create')}}">Add New +</a>
+        </div>
+    </div>
+    <div class="border-base-content/25 w-full overflow-x-auto rounded-lg border mb-5">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>thumbnail</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in data.data%}
+                <tr>
+                    <td>{{category.id}}</td>
+                    <td class="min-w-[150px]">
+                        {% if category.thumbnail%}
+                        <img src="{{url_for('uploads',path=category.thumbnail.url)}}" class="h-16 w-16 rounded-xl" />
+                        {%else%}
+                        N/A
+                        {% endif%}
+                    </td>
+                    <td>
+                        {{category.name}}
+                    </td>
+                    <td>
+                        <a href="{{url_for('admin.blog_categories.edit',id=category.id)}}"
+                            class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                class="icon-[tabler--pencil] size-5"></span></a>
+                        <button class="btn btn-circle btn-text btn-sm" aria-label="Action button"
+                            data-overlay="#delete-modal-{{category.id}}"><span
+                                class="icon-[tabler--trash] size-5"></span></button>
+                        <div id="delete-modal-{{category.id}}"
+                            class="overlay modal overlay-open:opacity-100 hidden overlay-open:duration-300"
+                            role="dialog" tabindex="-1">
+                            <div class="modal-dialog overlay-open:opacity-100 overlay-open:duration-300">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Delete Category - {{category.title | capitalize}}</h3>
+                                        <button type="button"
+                                            class="btn btn-text btn-circle btn-sm absolute end-3 top-3"
+                                            aria-label="Close" data-overlay="#delete-modal-{{category.id}}">
+                                            <span class="icon-[tabler--x] size-4"></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure, You want to delete this Category ?
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="button" class="btn btn-soft btn-secondary"
+                                            data-overlay="#delete-modal-{{category.id}}">Cancle</button>
+                                        {% set delete_url = url_for('admin.blog_categories.delete', id=category.id)%}
+                                        <button type="submit" class="btn btn-error"
+                                            onclick="deleteTableRecord(this,'{{ delete_url }}','{{ delete_form.csrf_token.current_token }}')">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-circle btn-text btn-sm" aria-label="Action button"><span
+                                class="icon-[tabler--dots-vertical] size-5"></span></button>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    <div class="flex w-full justify-end">
+        {% with page=data.page, per_page=data.per_page, total=data.total %}
+        {% include "partials/pagination.html.j2" %}
+        {% endwith %}
+    </div>
+</div>
+{% endblock content %}
+{% block script%}
+{{super()}}
+<script src="/static/js/indexFilters.bundle.js">
+</script>
+{% endblock%}

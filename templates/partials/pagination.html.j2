@@ -1,0 +1,36 @@
+{# Requires 'page', 'per_page', and 'total' in context #}
+
+{% set total_pages = (total // per_page) + (1 if total % per_page else 0) %}
+{% set prev_page = page - 1 %}
+{% set next_page = page + 1 %}
+{% set page_range = range(1, total_pages + 1) %}
+
+<nav class="join">
+    <button type="button" class="btn btn-soft btn-square join-item" aria-label="Previous Button" {% if page <=1 %}
+        disabled {% endif %} onclick="setPage({{ prev_page }})">
+        <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
+    </button>
+
+    {% for p in page_range %}
+    <button type="button"
+        class="btn btn-soft join-item btn-square {% if p == page %}aria-[current='page']:text-bg-soft-primary{% endif %}"
+        {% if p==page %} aria-current="page" {% endif %} onclick="setPage({{ p }})">
+        {{ p}}
+    </button>
+    {% endfor %}
+
+    <button type="button" class="btn btn-soft btn-square join-item" aria-label="Next Button" {% if page>= total_pages
+        %}disabled{% endif %}
+        onclick="setPage({{ next_page }})"
+        >
+        <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+    </button>
+</nav>
+
+<script>
+    function setPage(newPage) {
+        const url = new URL(window.location);
+        url.searchParams.set('page', newPage);
+        window.location = url.toString();
+    }
+</script>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {{ app_name }}
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="/static/css/main.css?v={{css_version()}}">
+</head>
+
+<body>
+    <nav
+        class="navbar rounded-box justify-between gap-4 shadow-base-300/20 shadow-sm md:ml-64 md:w-[calc(100vw-16rem)] transition-all">
+        <div class="navbar-start">
+            <div class="dropdown relative inline-flex [--auto-close:inside] [--offset:9]">
+                <button type="button" class="btn btn-text max-md:btn-square md:hidden" aria-haspopup="dialog"
+                    aria-expanded="false" aria-controls="default-sidebar" data-overlay="#default-sidebar">
+                    <span class="icon-[tabler--menu-2] size-5"></span>
+                </button>
+            </div>
+        </div>
+        <div class="navbar-center flex items-center">
+            <a href="{{url_for('admin.dashboard')}}" class="flex items-center gap-1 font-bold text-xl">
+                <img src="{{url_for('static',path='/logo.png')}}" alt="" class="w-auto h-6"> {{app_name }}
+            </a>
+        </div>
+        <div class="navbar-end items-center gap-4">
+            <button class="btn btn-sm btn-text btn-circle size-8.5" aria-label="Search Button">
+                <span class="icon-[tabler--search] size-5.5"></span>
+            </button>
+            <div class="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
+                <button id="dropdown-scrollable" type="button" class="dropdown-toggle flex items-center"
+                    aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                    <div class="avatar  cursor-pointer">
+                        <div class="size-9.5 rounded-full">
+                            <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="avatar 1" />
+                        </div>
+                    </div>
+                </button>
+                <ul class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60" role="menu"
+                    aria-orientation="vertical" aria-labelledby="dropdown-avatar">
+                    <li class="dropdown-header gap-2">
+                        <div class="avatar">
+                            <div class="w-10 rounded-full">
+                                <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="avatar" />
+                            </div>
+                        </div>
+                        <div>
+                            <h6 class="text-base-content text-base font-semibold">{{user.name}}</h6>
+                            <small class="text-base-content/50">{{user.user_type.value}}</small>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <span class="icon-[tabler--user]"></span>
+                            My Profile
+                        </a>
+                    </li>
+                    <li class="gap-2 w-full">
+                        <form action="{{url_for('admin.logout')}}" method="post" class="w-full">
+                            <button type="submit" class="btn btn-error btn-soft w-full">
+                                <span class="icon-[tabler--logout]"></span>
+                                Sign out
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="md:ml-64 md:w-[calc(100vw-16rem)] max-h-[calc(100vh-4rem)] transition-all overflow-y-scroll">
+        {% include 'partials/alert.html.j2' %}
+        {% block content %}
+        {% endblock content %}
+        {% include "partials/page_loader.html.j2"%}
+    </div>
+    <aside id="default-sidebar"
+        class="overlay [--auto-close:sm] md:shadow-none overlay-open:translate-x-0 drawer drawer-start hidden max-w-64 md:absolute md:z-0 md:flex md:translate-x-0 bg-gray-900 transition-all"
+        role="dialog" tabindex="-1">
+        <div class="drawer-body px-2 pt-4">
+            <ul class="menu p-0 bg-gray-900 [&>li]:text-secondary-content">
+                <li
+                    class="hover:bg-secondary-content {{'bg-secondary-content [&>a]:text-base-content' if url_for('admin.dashboard')==request.url else ''}} transition-all duration-300">
+                    <a href="{{url_for('admin.dashboard')}}">
+                        <span class="icon-[tabler--home] size-5"></span>
+                        Dashboard
+                    </a>
+                </li>
+                <li
+                    class="hover:bg-secondary-content {{'bg-secondary-content [&>a]:text-base-content' if url_for('admin.users')==request.url else ''}} transition-all duration-300">
+                    <a href="{{url_for('admin.users')}}">
+                        <span class="icon-[tabler--user] size-5"></span>
+                        Users
+                    </a>
+                </li>
+                <li
+                    class="hover:bg-secondary-content {{'bg-secondary-content [&>a]:text-base-content' if url_for('admin.roles')==request.url else ''}} transition-all duration-300">
+                    <a href="{{url_for('admin.roles')}}">
+                        <span class="icon-[tabler--users] size-5"></span>
+                        Roles
+                    </a>
+                </li>
+                <li
+                    class="hover:bg-secondary-content {{'bg-secondary-content [&>a]:text-base-content' if url_for('admin.images')==request.url else ''}} transition-all duration-300">
+                    <a href="{{url_for('admin.images')}}">
+                        <span class="icon-[tabler--library-photo] size-5"></span>
+                        Images
+                    </a>
+                </li>
+                <li
+                    class="hover:bg-secondary-content {{'bg-secondary-content [&>a]:text-base-content' if url_for('admin.blogs')==request.url else ''}} transition-all duration-300">
+                    <a href="{{url_for('admin.blogs')}}">
+                        <span class="icon-[tabler--message] size-5"></span>
+                        Blogs
+                    </a>
+                </li>
+                <li
+                    class="hover:bg-secondary-content {{'bg-secondary-content [&>a]:text-base-content' if url_for('admin.blog_categories')==request.url else ''}} transition-all duration-300">
+                    <a href="{{url_for('admin.blog_categories')}}">
+                        <span class="icon-[tabler--message] size-5"></span>
+                        Blog Categories
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <script src="/static/js/flyonui.bundle.js"></script>
+    {% block script%}
+    {% endblock%}
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "opt-flow-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "tw:watch": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/main.css --watch",
+    "build": "node build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.5",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.6",
+    "flyonui": "^2.1.0",
+    "tailwindcss": "^4.1.6"
+  },
+  "devDependencies": {
+    "@editorjs/code": "^2.9.3",
+    "@editorjs/editorjs": "^2.30.8",
+    "@editorjs/header": "^2.8.8",
+    "@editorjs/list": "^2.0.8",
+    "@editorjs/marker": "^1.4.0",
+    "@editorjs/quote": "^2.7.6",
+    "@editorjs/simple-image": "^1.6.0",
+    "@editorjs/table": "^2.4.5",
+    "@iconify-json/tabler": "^1.2.17",
+    "@iconify/tailwind4": "^1.0.6",
+    "esbuild": "^0.25.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@tailwindcss/oxide"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "flyonui";
+@import "../../node_modules/flyonui/variants.css";
+@import "flyonui/src/vendor/editor.css";
+@plugin "@iconify/tailwind4";
+@plugin "flyonui" {
+  themes: corporate --default --prefersdark;
+}

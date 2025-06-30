@@ -1,0 +1,12 @@
+# .flake8
+
+[flake8]
+# Increase the allowed line length
+max-line-length = 120 
+# Ignore certain rules (can add more here)
+ignore = E203, E231, W503
+# Exclude specific directories
+exclude = .git, __pycache__, docs, tests  
+
+[flake8:per-file-ignores]
+alembic/env.py = F401

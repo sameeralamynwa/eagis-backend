@@ -1,0 +1,28 @@
+{% extends "admin/base.html.j2" %}
+{% import "macros/forms.html.j2" as forms %}
+
+{% block content %}
+<div class="p-5 mt-2 mb-4">
+    <div class="flex justify-between mb-5 gap-4">
+        <h1 class="text-2xl font-bold">Update Image</h1>
+    </div>
+    <form action="{{url_for('admin.images.edit',id=request.path_params.get('id'))}}" method="post" class="max-w-2xl">
+        {{ form.csrf_token }}
+
+        <div class="mb-2">
+            {{forms.render_input(form.title,placeholder="Image Title")}}
+        </div>
+        <div class="mb-2">
+            {{forms.render_input(form.alt_text,placeholder="Image Alt Texts")}}
+        </div>
+
+        <div class="flex w-full justify-end gap-4">
+            <a href="{{url_for('admin.images')}}" class="btn btn-secondary">Go Back</a>
+            <button type="submit" class="btn btn-primary">
+                Update
+            </button>
+        </div>
+    </form>
+
+</div>
+{% endblock content %}

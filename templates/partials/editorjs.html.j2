@@ -1,0 +1,52 @@
+<script src="/static/js/editorjs/editorjs.umd.js" defer></script>
+<script src="/static/js/editorjs/header.umd.js" defer></script>
+<script src="/static/js/editorjs/code.umd.js" defer></script>
+<script src="/static/js/editorjs/editorjs-list.umd.js" defer></script>
+<script src="/static/js/editorjs/marker.umd.js" defer></script>
+<script src="/static/js/editorjs/quote.umd.js" defer></script>
+<script src="/static/js/editorjs/simple-image.umd.js" defer></script>
+<script src="/static/js/editorjs/table.umd.js" defer></script>
+<script defer>
+
+    function createEditorJs(elementId) {
+        const editor = new EditorJS({
+            holder: elementId,
+            tools: {
+                header: {
+                    class: Header,
+                    inlineToolbar: ['marker', 'link'],
+                    config: {
+                        placeholder: 'Header'
+                    },
+                    shortcut: 'CMD+SHIFT+H'
+                },
+                // raw: RawTool,
+                image: SimpleImage,
+                list: {
+                    class: NestedList,
+                    inlineToolbar: true,
+                    shortcut: 'CMD+SHIFT+L'
+                },
+                quote: {
+                    class: Quote,
+                    inlineToolbar: true,
+                    config: {
+                        quotePlaceholder: 'Enter a quote',
+                        captionPlaceholder: "Quote's author"
+                    },
+                    shortcut: 'CMD+SHIFT+O'
+                },
+                marker: {
+                    class: Marker,
+                    shortcut: 'CMD+SHIFT+M'
+                },
+                table: {
+                    class: Table,
+                    inlineToolbar: true,
+                    shortcut: 'CMD+ALT+T'
+                },
+                code: CodeTool,
+            },
+        });
+    }
+</script>

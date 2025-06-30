@@ -1,0 +1,31 @@
+{% extends "admin/base.html.j2" %}
+{% import "macros/forms.html.j2" as forms %}
+
+{% block content %}
+<div class="p-5 mt-2 mb-4">
+    <div class="flex justify-between mb-5 gap-4">
+        <h1 class="text-2xl font-bold">Create Role</h1>
+    </div>
+    <form action="{{url_for('admin.roles.create')}}" method="post" class="max-w-2xl">
+        {{ form.csrf_token }}
+        <div class="mb-2">
+            {{forms.render_input(form.name,placeholder="eg. Moderator")}}
+        </div>
+
+        <h2 class="text-xl font-bold mb-4">Permissions</h2>
+        {% for permission in form.permissions %}
+        {{forms.render_checkbox(permission)}}
+        {% endfor %}
+
+
+
+        <div class="flex w-full justify-end gap-4">
+            <a href="{{url_for('admin.roles')}}" class="btn btn-secondary">Go Back</a>
+            <button type="submit" class="btn btn-primary">
+                Create
+            </button>
+        </div>
+    </form>
+
+</div>
+{% endblock content %}
