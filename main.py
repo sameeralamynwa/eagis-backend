@@ -31,6 +31,7 @@ app.add_middleware(
         "http://www.eagis.ai",
         "https://eagis.ai",
         "https://www.eagis.ai",
+        "http://44.218.200.78:3000",
     ],
     allow_credentials=True,
     allow_methods=["*"],
