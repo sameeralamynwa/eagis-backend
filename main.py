@@ -26,6 +26,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "http://0.0.0.0:3000",
         "http://eagis.ai",
         "http://eagis.ai:3000",
         "http://www.eagis.ai",
