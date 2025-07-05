@@ -24,7 +24,14 @@ app = FastAPI(title=config.app_name)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://eagis.ai",
+        "http://eagis.ai:3000",
+        "http://www.eagis.ai",
+        "https://eagis.ai",
+        "https://www.eagis.ai",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
